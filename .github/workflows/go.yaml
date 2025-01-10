@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'go/scraper**'
+      - './github/workflows/go.yaml'
   pull_request:
     branches:
       - main
@@ -10,6 +13,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'go/scraper'
     steps:
       - uses: actions/checkout@v4
       - name: Setup Go
