@@ -5,8 +5,7 @@ on:
     branches:
       - main
     paths:
-      - go/scraper/**
-      - ./github/workflows/go.yaml
+      - 'go/scraper/**'
   pull_request:
     branches:
       - main
