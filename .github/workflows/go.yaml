@@ -29,8 +29,8 @@ jobs:
             **/go.mod
       - name: Install dependencies
         run: go get .
-      - name: Test with Go
-        run: go test -v ./...
+      - name: Build with Go
+        run: go build ./...
   golangci:
     name: lint
     runs-on: ubuntu-latest
@@ -49,3 +49,22 @@ jobs:
         with:
           version: v1.60
           working-directory: ${{ env.WORKING_DIRECTORY }}
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: ${{ env.WORKING_DIRECTORY }}/go.mod
+          cache: true
+          cache-dependency-path: |
+            **/go.sum
+            **/go.mod
+      - name: Install dependencies
+        run: go get .
+      - name: Test with Go
+        run: go test -v ./...
