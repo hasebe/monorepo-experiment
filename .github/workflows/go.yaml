@@ -2,10 +2,9 @@ name: Go
 
 on:
   push:
-    branches:
-      - main
     paths:
       - 'go/scraper/**'
+      - './github/workflows/go.yaml'
   pull_request:
     branches:
       - main
