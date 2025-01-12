@@ -1,0 +1,35 @@
+name: Google Apps Script
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'ts/gas-sample/**'
+      - '.github/workflows/gas.yaml'
+  pull_request:
+    branches:
+      - main
+
+env:
+  WORKING_DIRECTORY: ts/gas-sample
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+          cache-dependency-path: |
+            **/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Test
+        run: npm test
